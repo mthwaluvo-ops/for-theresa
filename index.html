@@ -1,0 +1,472 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>A Question For Theresa</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,600;1,9..144,800&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<style>
+/* Layout: one centred stage. A two-line italic question (her name is the big moment),
+   three stacked answers, and a layer of floating hearts and flowers behind everything.
+   Deliberately one romantic dark look, so every colour is set explicitly. */
+:root {
+  --bg: #2b0a1d;
+  --bg-glow: #5c1540;
+  --bg-glow-2: #4a0f35;
+  --fg: #fff1f5;
+  --muted: #f6bdd0;
+  --rose: #ff4d7e;
+  --rose-deep: #d6215a;
+  --blush: #ffc9d8;
+  --peach: #ffb48a;
+  --line: #ff8fb0;
+  --glass: rgba(255, 201, 216, 0.1);
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html { height: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse at 18% 8%, var(--bg-glow) 0%, transparent 55%),
+    radial-gradient(ellipse at 88% 92%, var(--bg-glow-2) 0%, transparent 50%);
+  background-attachment: fixed;
+  color: var(--fg);
+  font-family: var(--font-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 24px;
+  overflow-x: hidden;
+}
+
+.sky {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.floaty {
+  position: absolute;
+  bottom: -3rem;
+  line-height: 1;
+  will-change: transform, opacity;
+  animation: rise linear forwards;
+}
+
+.floaty.still {
+  bottom: auto;
+  animation: none;
+  opacity: 0.85;
+}
+
+.pop {
+  position: absolute;
+  line-height: 1;
+  opacity: 0;
+  animation: pop 1.7s cubic-bezier(0.15, 0.7, 0.3, 1) forwards;
+}
+
+@keyframes rise {
+  0%   { transform: translate3d(0, 0, 0) rotate(-10deg); opacity: 0; }
+  10%  { opacity: 1; }
+  50%  { transform: translate3d(var(--sway, 0px), -55vh, 0) rotate(12deg); }
+  90%  { opacity: 1; }
+  100% { transform: translate3d(calc(var(--sway, 0px) * -1), -118vh, 0) rotate(-12deg); opacity: 0; }
+}
+
+@keyframes pop {
+  0%   { transform: translate(-50%, -50%) scale(0.2); opacity: 0; }
+  15%  { opacity: 1; }
+  100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1) rotate(25deg); opacity: 0; }
+}
+
+.stage {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 34rem;
+  min-width: 0;
+}
+
+.view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  text-align: center;
+}
+
+.bloom {
+  font-size: 3rem;
+  line-height: 1;
+  animation: sway 3.4s ease-in-out infinite;
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-8deg) translateY(0); }
+  50% { transform: rotate(8deg) translateY(-6px); }
+}
+
+h1, h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+.q-lead {
+  display: block;
+  font-size: clamp(2rem, 9vw, 3.4rem);
+  color: var(--blush);
+}
+
+.q-name {
+  display: block;
+  font-size: clamp(3.4rem, 17vw, 6.5rem);
+  font-weight: 800;
+  padding: 0.04em 0.1em 0.08em;
+  color: var(--rose);
+  background: linear-gradient(100deg, var(--line), var(--rose) 55%, var(--peach));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.answers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  padding-inline: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.slot {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.btn {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.3;
+  border-radius: 999px;
+  padding: 0.95rem 1.7rem;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--blush);
+  outline-offset: 3px;
+}
+
+.btn-dodge {
+  position: relative;
+  z-index: 3;
+  color: var(--fg);
+  background: var(--glass);
+  border: 2px solid var(--line);
+  transition: transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+}
+
+.btn-yes {
+  width: min(100%, 24rem);
+  color: #fff;
+  background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+  border: 2px solid transparent;
+  text-wrap: balance;
+  transform: scale(var(--grow, 1));
+  transition: transform 0.3s ease;
+  animation: glow 1.9s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 10px 28px rgba(255, 77, 126, 0.4); }
+  50% { box-shadow: 0 10px 44px rgba(255, 77, 126, 0.75); }
+}
+
+.tease {
+  min-height: 1.6em;
+  margin: 0;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.big-heart {
+  font-size: clamp(4rem, 22vw, 6.5rem);
+  line-height: 1;
+  animation: beat 1.5s ease-in-out infinite;
+}
+
+@keyframes beat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.18); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.12); }
+}
+
+#thanks h2 {
+  font-size: clamp(1.9rem, 7.5vw, 3rem);
+  color: var(--fg);
+  outline: none;
+}
+
+#thanks h2 .name {
+  font-weight: 800;
+  color: var(--rose);
+  background: linear-gradient(100deg, var(--line), var(--rose) 55%, var(--peach));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 0 0.08em;
+}
+
+.hearts-row {
+  margin: 0;
+  font-size: 1.6rem;
+  letter-spacing: 0.35em;
+  padding-left: 0.35em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+</style>
+
+<div class="sky" id="sky" aria-hidden="true"></div>
+
+<main class="stage">
+  <section id="ask" class="view">
+    <div class="bloom" aria-hidden="true">🌹</div>
+
+    <h1 id="question"><span class="q-lead">Ungiqoma nini</span> <span class="q-name">Theresa?</span></h1>
+
+    <div class="answers">
+      <div class="slot"><button class="btn btn-dodge" type="button">Awuva wena Kodwa</button></div>
+      <div class="slot"><button class="btn btn-dodge" type="button">Uslow Wena</button></div>
+      <button id="yes" class="btn btn-yes" type="button">Let's give it a try, I can really see you are serious about this</button>
+    </div>
+
+    <p class="tease" id="tease" aria-live="polite">Choose carefully 💕</p>
+  </section>
+
+  <section id="thanks" class="view" hidden>
+    <div class="big-heart" aria-hidden="true">💖</div>
+    <h2 id="thanks-title" tabindex="-1">Thank you very much <span class="name">Theresa</span>, this means a lot to me.</h2>
+    <p class="hearts-row" aria-hidden="true">💕🌹💗🌸💞🌷</p>
+  </section>
+</main>
+
+<script>
+(function () {
+  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var sky = document.getElementById('sky');
+  var ask = document.getElementById('ask');
+  var thanks = document.getElementById('thanks');
+  var yes = document.getElementById('yes');
+  var tease = document.getElementById('tease');
+  var question = document.getElementById('question');
+  var accepted = false;
+  var dodgeCount = 0;
+
+  var emojis = ['💖', '💕', '💗', '🌹', '🌸', '🌷', '💞', '🌺', '✨', '💐'];
+  var lines = [
+    'Hehe, that one is shy 🙈',
+    'Nice try 😄',
+    'Almost had it! 😂',
+    'That button does not want to be pressed 💕',
+    'Why not press the glowing one? 😉',
+    'Your heart already knows which one 💖'
+  ];
+  var lineIndex = 0;
+
+  function pick() { return emojis[Math.floor(Math.random() * emojis.length)]; }
+
+  /* ---------- floating hearts and flowers ---------- */
+  function floaty(seed) {
+    if (document.hidden) return;
+    if (sky.childElementCount > 48) return;
+    var el = document.createElement('span');
+    el.className = 'floaty';
+    el.textContent = pick();
+    el.style.left = (Math.random() * 100) + '%';
+    el.style.fontSize = (18 + Math.random() * 30) + 'px';
+    if (reduce) {
+      el.className = 'floaty still';
+      el.style.top = (Math.random() * 100) + '%';
+    } else {
+      var dur = (accepted ? 5 : 7) + Math.random() * 5;
+      el.style.animationDuration = dur + 's';
+      if (seed) el.style.animationDelay = (-Math.random() * dur) + 's';
+      el.style.setProperty('--sway', (Math.random() * 80 - 40) + 'px');
+      el.addEventListener('animationend', function () { el.remove(); });
+    }
+    sky.appendChild(el);
+  }
+
+  function loop() {
+    floaty(false);
+    setTimeout(loop, accepted ? 170 : 480);
+  }
+
+  for (var i = 0; i < 16; i++) floaty(true);
+  if (!reduce) loop();
+
+  function burst() {
+    var n = reduce ? 18 : 52;
+    var reach = Math.min(window.innerWidth, window.innerHeight);
+    for (var i = 0; i < n; i++) {
+      var el = document.createElement('span');
+      el.textContent = pick();
+      el.style.fontSize = (20 + Math.random() * 26) + 'px';
+      if (reduce) {
+        el.className = 'floaty still';
+        el.style.left = (Math.random() * 100) + '%';
+        el.style.top = (Math.random() * 100) + '%';
+      } else {
+        var ang = Math.random() * Math.PI * 2;
+        var dist = 110 + Math.random() * reach * 0.6;
+        el.className = 'pop';
+        el.style.left = '50%';
+        el.style.top = '45%';
+        el.style.setProperty('--dx', (Math.cos(ang) * dist) + 'px');
+        el.style.setProperty('--dy', (Math.sin(ang) * dist) + 'px');
+        el.style.animationDelay = (Math.random() * 0.18) + 's';
+        el.addEventListener('animationend', function (e) { e.target.remove(); });
+      }
+      sky.appendChild(el);
+    }
+  }
+
+  /* ---------- the two buttons that run away ---------- */
+  var state = [].slice.call(document.querySelectorAll('.btn-dodge')).map(function (el) {
+    return { el: el, slot: el.parentNode, x: 0, y: 0, last: 0 };
+  });
+
+  function overlap(a, b, pad) {
+    return a.left < b.right + pad && a.right > b.left - pad &&
+           a.top < b.bottom + pad && a.bottom > b.top - pad;
+  }
+
+  function place(s, px, py) {
+    var sr = s.slot.getBoundingClientRect();
+    var w = sr.width, h = sr.height;
+    var vw = document.documentElement.clientWidth;
+    var vh = document.documentElement.clientHeight;
+    var m = 14, top = 30;
+    var minX = m, maxX = Math.max(m, vw - w - m);
+    var minY = top, maxY = Math.max(top, vh - h - m);
+    var q = question.getBoundingClientRect();
+    var y = yes.getBoundingClientRect();
+    var others = state.filter(function (o) { return o !== s; }).map(function (o) {
+      var r = o.slot.getBoundingClientRect();
+      return { left: r.left + o.x, top: r.top + o.y, right: r.right + o.x, bottom: r.bottom + o.y };
+    });
+    var best = null, bestScore = -1e9;
+    for (var i = 0; i < 60; i++) {
+      var x = minX + Math.random() * (maxX - minX);
+      var yy = minY + Math.random() * (maxY - minY);
+      var rect = { left: x, top: yy, right: x + w, bottom: yy + h };
+      var d = Math.hypot(x + w / 2 - px, yy + h / 2 - py);
+      var score = Math.min(d, 320);
+      if (overlap(rect, y, 12)) score -= 1000;
+      if (overlap(rect, q, 6)) score -= 400;
+      for (var k = 0; k < others.length; k++) {
+        if (overlap(rect, others[k], 12)) score -= 700;
+      }
+      if (score > bestScore) { bestScore = score; best = { x: x, y: yy }; }
+    }
+    s.x = best.x - sr.left;
+    s.y = best.y - sr.top;
+    s.el.style.transform = 'translate(' + s.x + 'px,' + s.y + 'px)';
+  }
+
+  function say() {
+    lineIndex = (lineIndex + 1 + Math.floor(Math.random() * (lines.length - 1))) % lines.length;
+    tease.textContent = lines[lineIndex];
+  }
+
+  function dodge(s, px, py) {
+    var now = Date.now();
+    if (now - s.last < 250) return;
+    s.last = now;
+    dodgeCount++;
+    yes.style.setProperty('--grow', Math.min(1.12, 1 + dodgeCount * 0.015));
+    say();
+    place(s, px, py);
+  }
+
+  function near(s, px, py, pad) {
+    var r = s.el.getBoundingClientRect();
+    return px > r.left - pad && px < r.right + pad && py > r.top - pad && py < r.bottom + pad;
+  }
+
+  function check(e, pad) {
+    if (accepted) return;
+    state.forEach(function (s) {
+      if (near(s, e.clientX, e.clientY, pad)) dodge(s, e.clientX, e.clientY);
+    });
+  }
+
+  document.addEventListener('pointermove', function (e) { check(e, 60); }, { passive: true });
+  document.addEventListener('pointerdown', function (e) { check(e, 50); }, { passive: true });
+
+  state.forEach(function (s) {
+    s.el.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (accepted) return;
+      var r = s.el.getBoundingClientRect();
+      var px = e.detail === 0 ? r.left + r.width / 2 : e.clientX;
+      var py = e.detail === 0 ? r.top + r.height / 2 : e.clientY;
+      dodge(s, px, py);
+    });
+  });
+
+  var lastWidth = window.innerWidth;
+  window.addEventListener('resize', function () {
+    if (window.innerWidth === lastWidth) return;
+    lastWidth = window.innerWidth;
+    state.forEach(function (s) {
+      s.x = 0; s.y = 0;
+      s.el.style.transform = '';
+    });
+  });
+
+  /* ---------- the answer she is meant to press ---------- */
+  yes.addEventListener('click', function () {
+    if (accepted) return;
+    accepted = true;
+    ask.hidden = true;
+    thanks.hidden = false;
+    burst();
+    var title = document.getElementById('thanks-title');
+    try { title.focus({ preventScroll: true }); } catch (err) { /* focus is optional */ }
+  });
+})();
+</script>
+
+</body></html>
